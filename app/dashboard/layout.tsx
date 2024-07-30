@@ -1,8 +1,4 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Analyzerun",
@@ -14,9 +10,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={`contents ${inter.className}`}>{children}</body>
-    </html>
-  );
+  return <main className="w-screen h-screen">{children}</main>;
 }
