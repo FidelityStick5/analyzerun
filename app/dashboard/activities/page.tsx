@@ -1,4 +1,7 @@
 import { Metadata } from "next";
+import ActivitiesContainer from "./ActivitiesContainer";
+import ActivitiesProvider from "./ActivitiesProvider";
+import ActivityUpload from "./ActivityUpload";
 
 export const metadata: Metadata = {
   title: "Analyzerun - Analyzing activities...",
@@ -7,6 +10,13 @@ export const metadata: Metadata = {
 
 export default function ActivitiesPage() {
   return (
-    <div className="bg-dracula-background p-4 md:rounded">ActivitiesPage</div>
+    <ActivitiesProvider>
+      <div className="bg-dracula-background p-4 md:rounded">
+        <div>
+          <ActivityUpload />
+        </div>
+        <ActivitiesContainer />
+      </div>
+    </ActivitiesProvider>
   );
 }
