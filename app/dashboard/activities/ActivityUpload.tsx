@@ -20,9 +20,22 @@ export default function ActivityUpload() {
   };
 
   return (
-    <form action={importActivities}>
-      <input type="file" name="file" accept=".csv,text/csv" />
-      <button type="submit">Import CSV from Garmin Connect</button>
+    <form action={importActivities} className="flex gap-4">
+      <label className="inline-block cursor-pointer rounded bg-dracula-comment p-4 hover:bg-dracula-purple">
+        Select file
+        <input
+          type="file"
+          name="file"
+          accept=".csv,text/csv"
+          className="hidden"
+        />
+      </label>
+      <button
+        type="submit"
+        className="rounded bg-dracula-comment p-4 hover:bg-dracula-purple"
+      >
+        Import CSV from Garmin Connect
+      </button>
     </form>
   );
 }
