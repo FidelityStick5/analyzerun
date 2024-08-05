@@ -10,13 +10,11 @@ export const metadata: Metadata = {
 
 export default function ActivitiesPage() {
   return (
-    <ActivitiesProvider>
-      <div className="bg-dracula-background p-4 md:rounded">
-        <div>
-          <ActivityUpload />
-        </div>
-        <ActivitiesContainer />
+    <div className="overflow-auto bg-dracula-background md:rounded">
+      <div className="flex h-24 items-center justify-end border-b-2 border-b-dracula-selection p-4">
+        <ActivityUpload />
       </div>
-    </ActivitiesProvider>
+      <ActivitiesContainer />
+    </div>
   );
 }
