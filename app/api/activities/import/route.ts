@@ -85,6 +85,13 @@ const convertCSVtoJSON = (buffer: Buffer) => {
 async function POST(request: NextRequest) {
   const data = await request.formData();
   const blob = data.get("file") as Blob;
+
+  if (blob.size === 0 || blob.size >= 1024 * 1024 * 5)
+    return NextResponse.json(null, {
+      status: 413,
+      statusText: "Invalid size of the file",
+    });
+
   const arrayBuffer = await blob.arrayBuffer();
   const fileBuffer = Buffer.from(arrayBuffer);
 
