@@ -1,4 +1,5 @@
 export type Activity = {
+  id: UUID;
   activity_type: string;
   date: Date;
   favorite: boolean;

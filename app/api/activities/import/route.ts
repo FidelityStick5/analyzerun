@@ -1,8 +1,9 @@
+import { randomUUID } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
-import { Activity } from "@/types/globals";
 import { parse } from "papaparse";
+import { Activity } from "@/types/globals";
 
-const mapping: Record<keyof Activity, Array<string>> = {
+const mapping: Record<keyof Omit<Activity, "id">, Array<string>> = {
   activity_type: ["Activity Type", "Typ aktywności"],
   date: ["Date", "Data"],
   favorite: ["Favourite", "Ulubiony"],
@@ -52,7 +53,9 @@ const mapping: Record<keyof Activity, Array<string>> = {
 };
 
 const standardizeData = (data: Record<string, any>): Activity => {
-  let resultActivity: Partial<Activity> = {};
+  let resultActivity: Partial<Activity> = {
+    id: randomUUID(),
+  };
 
   for (const [key, value] of Object.entries(data)) {
     for (const [standardKey, localizedKeys] of Object.entries(mapping)) {
