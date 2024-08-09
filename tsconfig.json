@@ -18,8 +18,11 @@
       }
     ],
     "paths": {
+      "@/auth": ["./app/auth.ts"],
+      "@/components/*": ["./app/components/*"],
       "@/icons/*": ["./public/icons/*"],
       "@/types/*": ["./app/types/*"],
+      "@/utils/*": ["./app/utils/*"],
       "@/*": ["./*"]
     }
   },
