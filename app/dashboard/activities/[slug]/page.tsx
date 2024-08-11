@@ -13,7 +13,7 @@ export default function ActivityPage({ params }: { params: { slug: string } }) {
 
   useEffect(() => {
     const foundActivity = activities.find(
-      (activity) => activity.id === params.slug,
+      (activity) => activity._id.toString() === params.slug,
     );
 
     setActivity(foundActivity);

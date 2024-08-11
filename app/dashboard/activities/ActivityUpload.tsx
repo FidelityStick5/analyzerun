@@ -2,6 +2,7 @@
 
 import { useContext } from "react";
 import { ActivitiesContext, ActivitiesContextType } from "./ActivitiesProvider";
+import { ActivitiesEndpoint } from "@/types/endpoints";
 
 export default function ActivityUpload() {
   const { setActivities } =
@@ -14,9 +15,10 @@ export default function ActivityUpload() {
     });
 
     if (!response.ok) return;
-    const result = await response.json();
+    const result: ActivitiesEndpoint.PostResponse = await response.json();
+    if (!result.data) return;
 
-    setActivities(result);
+    setActivities(result.data);
   };
 
   return (

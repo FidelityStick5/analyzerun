@@ -1,5 +1,8 @@
+import { ObjectId } from "mongodb";
+
 export type Activity = {
-  id: UUID;
+  _id: ObjectId;
+  userId: ObjectId;
   activity_type: string;
   date: Date;
   favorite: boolean;

@@ -8,7 +8,7 @@ import { Activity } from "@/types/globals";
 function ActivityContainer(data: Activity) {
   return (
     <Link
-      href={`/dashboard/activities/${data.id}`}
+      href={`/dashboard/activities/${data._id.toString()}`}
       className="flex h-16 items-center border-b-2 border-b-dracula-selection px-4"
     >
       {data.title}
@@ -20,6 +20,6 @@ export default function ActivitiesContainer() {
   const { activities } = useContext<ActivitiesContextType>(ActivitiesContext);
 
   return activities.map((activity) => (
-    <ActivityContainer {...activity} key={activity.id} />
+    <ActivityContainer {...activity} key={activity._id.toString()} />
   ));
 }
