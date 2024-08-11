@@ -9,9 +9,10 @@ function ActivityContainer(data: Activity) {
   return (
     <Link
       href={`/dashboard/activities/${data._id.toString()}`}
-      className="flex h-16 items-center border-b-2 border-b-dracula-selection px-4"
+      className="flex h-16 items-center justify-between rounded bg-dracula-selection px-4 transition-colors hover:bg-dracula-purple"
     >
-      {data.title}
+      <div>{data.title}</div>
+      <div>{data.distance} km</div>
     </Link>
   );
 }
