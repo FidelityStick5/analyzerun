@@ -3,6 +3,7 @@
 import { useContext } from "react";
 import { ActivitiesContext, ActivitiesContextType } from "./ActivitiesProvider";
 import { ActivitiesEndpoint } from "@/types/endpoints";
+import { Activity } from "@/types/globals";
 
 export default function ActivityUpload() {
   const { setActivities } =
@@ -14,11 +15,14 @@ export default function ActivityUpload() {
       body: data,
     });
 
-    if (!response.ok) return;
+    if (!response.ok) throw response;
     const result: ActivitiesEndpoint.PostResponse = await response.json();
-    if (!result.data) return;
+    if (!result.data) throw response;
 
-    setActivities(result.data);
+    setActivities((previousState) => [
+      ...previousState,
+      ...(result.data as Array<Activity>),
+    ]);
   };
 
   return (

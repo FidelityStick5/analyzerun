@@ -76,6 +76,7 @@ async function POST(
       .db("database")
       .collection("activities")
       .insertMany(convertedData);
+    await client.close();
     if (!acknowledged)
       return NextResponse.json<ActivitiesEndpoint.PostResponse>(
         { message: "Insert operation not acknowledged" },

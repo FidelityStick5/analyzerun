@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { ActivitiesEndpoint } from "@/types/endpoints";
 import { Activity } from "@/types/globals";
 
 export type ActivitiesContextType = {
@@ -10,7 +11,7 @@ export type ActivitiesContextType = {
 
 const initialActivitiesContextState: ActivitiesContextType = {
   activities: [],
-  setActivities: () => { },
+  setActivities: () => {},
 };
 
 export const ActivitiesContext = createContext<ActivitiesContextType>(
@@ -25,6 +26,17 @@ export default function ActivitiesProvider({
   const [activities, setActivities] = useState<
     ActivitiesContextType["activities"]
   >([]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await fetch("/api/activities");
+      if (!response.ok) throw response;
+      const result: ActivitiesEndpoint.GetResponse = await response.json();
+      if (!result.data) throw response;
+
+      setActivities(result.data);
+    })();
+  }, []);
 
   return (
     <ActivitiesContext.Provider value={{ activities, setActivities }}>
