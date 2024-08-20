@@ -21,7 +21,6 @@ async function GET(): Promise<NextResponse<ActivitiesEndpoint.GetResponse>> {
       .collection("activities")
       .find({ userId: ObjectId.createFromHexString(user.id) })
       .toArray()) as Array<Activity>;
-    await client.close();
 
     return NextResponse.json<ActivitiesEndpoint.GetResponse>(
       { data: data, message: "OK" },
