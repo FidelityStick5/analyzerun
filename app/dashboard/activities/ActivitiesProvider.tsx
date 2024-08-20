@@ -11,7 +11,7 @@ export type ActivitiesContextType = {
 
 const initialActivitiesContextState: ActivitiesContextType = {
   activities: [],
-  setActivities: () => {},
+  setActivities: () => { },
 };
 
 export const ActivitiesContext = createContext<ActivitiesContextType>(
@@ -29,7 +29,7 @@ export default function ActivitiesProvider({
 
   useEffect(() => {
     (async () => {
-      const response = await fetch("/api/activities");
+      const response = await fetch("/api/activities", { method: "GET" });
       if (!response.ok) throw response;
       const result: ActivitiesEndpoint.GetResponse = await response.json();
       if (!result.data) throw response;
