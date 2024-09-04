@@ -2,9 +2,8 @@ import { ObjectId } from "mongodb";
 
 export type Activity = {
   _id: ObjectId;
-  userId: ObjectId;
   activity_type: string;
-  date: Date;
+  date: string;
   favorite: boolean;
   title: string;
   distance: number;
@@ -37,4 +36,18 @@ export type Activity = {
   elapsed_time: string;
   min_elevation: number;
   max_elevation: number;
+};
+
+export type Activities = {
+  _id: ObjectId;
+  userId: ObjectId;
+  timestamp: number;
+  activities: Array<Activity>;
+};
+
+export type Settings = {
+  _id: ObjectId;
+  userId: ObjectId;
+  age: number;
+  theme: "bright" | "dark" | "dracula";
 };
