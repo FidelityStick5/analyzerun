@@ -8,6 +8,21 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      animation: {
+        fadeIn: "fadeIn 250ms forwards ease-in-out",
+      },
+      keyframes: {
+        fadeIn: {
+          from: {
+            opacity: "0%",
+            transform: "translateY(-8px)",
+          },
+          to: {
+            opacity: "100%",
+            transform: "translateY(0)",
+          },
+        },
+      },
       colors: {
         dracula: {
           foreground: "#F8F8F2",

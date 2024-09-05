@@ -50,4 +50,5 @@ export type Settings = {
   userId: ObjectId;
   age: number;
   theme: "bright" | "dark" | "dracula";
+  activitiesPerPage: number;
 };

@@ -1,21 +1,27 @@
 import { Metadata } from "next";
 import ActivitiesContainer from "./ActivitiesContainer";
 import ActivityUpload from "./ActivityUpload";
+import PageSwitcher from "./PageSwitcher";
 
 export const metadata: Metadata = {
   title: "Analyzerun - Analyzing activities...",
   description: "Improve your running performance easily with Analyzerun",
 };
 
-export default function ActivitiesPage() {
+export default function ActivitiesPage({
+  searchParams,
+}: {
+  searchParams: { page: string };
+}) {
+  const convertedPage = searchParams.page ? parseInt(searchParams.page) : 0;
+
   return (
-    <div className="overflow-auto bg-dracula-background md:rounded">
-      <div className="flex h-24 items-center justify-end border-b-2 border-b-dracula-selection p-4">
+    <>
+      <div className="grid grid-rows-[6rem,1fr,4rem] overflow-auto bg-dracula-background md:rounded">
         <ActivityUpload />
+        <ActivitiesContainer page={convertedPage} />
+        <PageSwitcher page={convertedPage} />
       </div>
-      <div className="grid grid-cols-1 gap-4 p-4 lg:grid-cols-2 xl:grid-cols-3">
-        <ActivitiesContainer />
-      </div>
-    </div>
+    </>
   );
 }
