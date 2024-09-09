@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import ActivitiesContainer from "./ActivitiesContainer";
-import ActivityUpload from "./ActivityUpload";
 import PageSwitcher from "./PageSwitcher";
 
 export const metadata: Metadata = {
@@ -17,8 +16,7 @@ export default function ActivitiesPage({
 
   return (
     <>
-      <div className="grid grid-rows-[6rem,1fr,4rem] overflow-auto bg-dracula-background md:rounded">
-        <ActivityUpload />
+      <div className="grid grid-rows-[1fr,4rem] overflow-auto bg-dracula-background md:rounded">
         <ActivitiesContainer page={convertedPage} />
         <PageSwitcher page={convertedPage} />
       </div>

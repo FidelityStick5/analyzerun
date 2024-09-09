@@ -15,7 +15,7 @@ export const mapping: Record<
   max_heart_rate: ["Max HR", "Maksymalne tętno"],
   average_cadence: ["Avg Cadence", "Średni rytm"],
   max_cadence: ["Max Cadence", "Maksymalny rytm"],
-  average_pace: ["Average Pace", "Średnie tempo"],
+  average_pace: ["Avg Pace", "Średnie tempo"],
   best_pace: ["Best Pace", "Najlepsze tempo"],
   total_ascent: ["Total Ascent", "Całkowity wznios"],
   total_descent: ["Total Descent", "Całkowity spadek"],

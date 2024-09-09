@@ -1,12 +1,10 @@
 "use client";
 
-import { useContext } from "react";
-import { ActivitiesContext, ActivitiesContextType } from "./ActivitiesProvider";
 import { ActivitiesEndpoint } from "@/types/endpoints";
+import { useState } from "react";
 
-export default function ActivityUpload() {
-  const { setActivities } =
-    useContext<ActivitiesContextType>(ActivitiesContext);
+export default function ActivitiesImport() {
+  const [importedCount, setImportedCount] = useState<number>();
 
   const importActivities = async (data: FormData) => {
     const blob = data.get("file");
@@ -23,12 +21,12 @@ export default function ActivityUpload() {
     if (!result.data) throw response;
     if (!result.data.activities) return result.message;
 
-    setActivities(result.data.activities);
     localStorage.setItem("activities", JSON.stringify(result.data));
+    setImportedCount(result.insertedCount);
   };
 
   return (
-    <div className="flex h-24 items-center justify-end border-b-2 border-b-dracula-selection p-4">
+    <div className="flex h-24 items-center gap-4">
       <form action={importActivities} className="flex gap-4">
         <label className="inline-block cursor-pointer rounded bg-dracula-comment p-4 hover:bg-dracula-purple">
           Select file
@@ -46,6 +44,7 @@ export default function ActivityUpload() {
           Import CSV from Garmin Connect
         </button>
       </form>
+      {importedCount && <>Successfully imported {importedCount} activities</>}
     </div>
   );
 }

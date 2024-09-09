@@ -105,7 +105,7 @@ async function POST(
       );
 
     return NextResponse.json<ActivitiesEndpoint.PostResponse>(
-      { data: response, message: "OK" },
+      { data: response, insertedCount: convertedData.length, message: "OK" },
       { status: 201 },
     );
   } catch {
