@@ -5,15 +5,21 @@ import { useState } from "react";
 
 export default function ActivitiesImport() {
   const [importedCount, setImportedCount] = useState<number>();
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const importActivities = async (data: FormData) => {
-    const blob = data.get("file");
+  const importActivities = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData(event.currentTarget);
+
+    const blob = formData.get("file");
 
     if (!(blob instanceof Blob) || blob.size === 0) return;
 
     const response = await fetch("/api/activities/import", {
       method: "POST",
-      body: data,
+      body: formData,
     });
 
     if (!response.ok) throw response;
@@ -23,11 +29,12 @@ export default function ActivitiesImport() {
 
     localStorage.setItem("activities", JSON.stringify(result.data));
     setImportedCount(result.insertedCount);
+    setLoading(false);
   };
 
   return (
     <div className="flex h-24 items-center gap-4">
-      <form action={importActivities} className="flex gap-4">
+      <form onSubmit={importActivities} className="flex gap-4">
         <label className="inline-block cursor-pointer rounded bg-dracula-comment p-4 hover:bg-dracula-purple">
           Select file
           <input
@@ -39,9 +46,10 @@ export default function ActivitiesImport() {
         </label>
         <button
           type="submit"
-          className="rounded bg-dracula-comment p-4 hover:bg-dracula-purple"
+          className="rounded bg-dracula-comment p-4 hover:bg-dracula-purple disabled:bg-dracula-selection"
+          disabled={loading}
         >
-          Import CSV from Garmin Connect
+          {loading ? "Importing file..." : "Import CSV from Garmin Connect"}
         </button>
       </form>
       {importedCount && <>Successfully imported {importedCount} activities</>}
