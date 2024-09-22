@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useContext } from "react";
-import { ActivitiesContext, ActivitiesContextType } from "./ActivitiesProvider";
+import { ActivitiesContext } from "./ActivitiesProvider";
+import { SettingsContext } from "../SettingsProvider";
 import { Activity } from "@/types/globals";
 
 function ActivityContainer({
@@ -15,7 +16,7 @@ function ActivityContainer({
   return (
     <Link
       href={`/dashboard/activities/${activity._id.toString()}`}
-      className={`animate-fadeIn flex h-16 items-center justify-between rounded bg-dracula-selection px-4 opacity-0 transition-colors hover:bg-dracula-purple`}
+      className={`flex h-16 animate-fadeIn items-center justify-between rounded bg-dracula-selection px-4 opacity-0 transition-colors hover:bg-dracula-purple`}
       style={{ animationDelay: `${delay}ms` }}
     >
       <div>{activity.title}</div>
@@ -25,7 +26,10 @@ function ActivityContainer({
 }
 
 export default function ActivitiesContainer({ page }: { page: number }) {
-  const { activities } = useContext<ActivitiesContextType>(ActivitiesContext);
+  const { activities } = useContext(ActivitiesContext);
+  const { settings } = useContext(SettingsContext);
+
+  const activitiesPerPage = settings?.activitiesPerPage || 30;
 
   return (
     <div className="grid grid-cols-1 grid-rows-[repeat(auto-fill,4rem)] gap-4 p-4 lg:grid-cols-2 xl:grid-cols-3">
@@ -36,7 +40,7 @@ export default function ActivitiesContainer({ page }: { page: number }) {
           <>Page does not exist</>
         ) : (
           activities
-            .slice(page * 30, (page + 1) * 30)
+            .slice(page * activitiesPerPage, (page + 1) * activitiesPerPage)
             .map((activity, index) => (
               <ActivityContainer
                 activity={activity}

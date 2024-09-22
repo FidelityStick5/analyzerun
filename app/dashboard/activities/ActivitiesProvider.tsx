@@ -43,8 +43,6 @@ export default function ActivitiesProvider({
   useEffect(() => {
     if (!data || !data._id) return;
 
-    console.log(data);
-
     setActivities(data.activities);
     setTimestamp(data.timestamp);
   }, [data]);

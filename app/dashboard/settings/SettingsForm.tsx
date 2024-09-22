@@ -1,16 +1,39 @@
 "use client";
 
+import { useContext, useState } from "react";
+import { SettingsContext } from "../SettingsProvider";
+
 export default function SettingsForm() {
-  const saveSettings = async (data: FormData) => {
-    const response = await fetch("http://localhost:3000/api/settings", {
+  const { setSettings } = useContext(SettingsContext);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const saveSettings = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData(event.currentTarget);
+
+    const data = {
+      age: parseInt(formData.get("age") as string) || undefined,
+      activitiesPerPage:
+        parseInt(formData.get("activities-per-page") as string) || 20,
+      theme: (formData.get("theme") as "bright" | "dark" | "dracula") ?? "dark",
+    };
+
+    const response = await fetch("/api/settings", {
       method: "PUT",
-      body: data,
+      body: formData,
     });
     if (!response.ok) throw response;
+
+    localStorage.setItem("settings", JSON.stringify(data));
+    setSettings(data);
+    setLoading(false);
   };
 
   return (
-    <form action={saveSettings} className="flex flex-col gap-4">
+    <form onSubmit={saveSettings} className="flex flex-col gap-4">
+      <div className="text-xl font-semibold">User</div>
       <input
         type="number"
         min="1"
@@ -18,6 +41,18 @@ export default function SettingsForm() {
         step="1"
         name="age"
         placeholder="Your age"
+        className="h-12 w-full appearance-none rounded bg-dracula-selection px-4 text-dracula-foreground outline-none"
+        required
+      />
+
+      <div className="text-xl font-semibold">Dashboard preferences</div>
+      <input
+        type="number"
+        min="1"
+        max="100"
+        step="1"
+        name="activities-per-page"
+        placeholder="Activities per page (default 30)"
         className="h-12 w-full appearance-none rounded bg-dracula-selection px-4 text-dracula-foreground outline-none"
         required
       />
@@ -34,9 +69,10 @@ export default function SettingsForm() {
 
       <button
         type="submit"
-        className="w-full rounded bg-dracula-comment p-4 hover:bg-dracula-purple"
+        className="w-full rounded bg-dracula-comment p-4 hover:bg-dracula-purple disabled:bg-dracula-selection"
+        disabled={loading}
       >
-        Save
+        {loading ? "Saving settings..." : "Save settings"}
       </button>
     </form>
   );

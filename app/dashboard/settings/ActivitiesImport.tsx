@@ -21,7 +21,6 @@ export default function ActivitiesImport() {
       method: "POST",
       body: formData,
     });
-
     if (!response.ok) throw response;
     const result: ActivitiesEndpoint.PostResponse = await response.json();
     if (!result.data) throw response;

@@ -1,10 +1,7 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import {
-  ActivitiesContext,
-  ActivitiesContextType,
-} from "../ActivitiesProvider";
+import { ActivitiesContext } from "../ActivitiesProvider";
 import { Activity } from "@/types/globals";
 import CaloriesIcon from "@/icons/calories.svg";
 import DateIcon from "@/icons/time.svg";
@@ -50,7 +47,7 @@ export default function ActivityPage({
 }: {
   params: { slug: string };
 }) {
-  const { activities } = useContext<ActivitiesContextType>(ActivitiesContext);
+  const { activities } = useContext(ActivitiesContext);
   const [activity, setActivity] = useState<Activity>();
 
   useEffect(() => {
