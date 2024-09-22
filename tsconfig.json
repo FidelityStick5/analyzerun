@@ -21,6 +21,7 @@
       "@/auth": ["./app/auth.ts"],
       "@/components/*": ["./app/components/*"],
       "@/icons/*": ["./public/icons/*"],
+      "@/hooks/*": ["./app/hooks/*"],
       "@/types/*": ["./app/types/*"],
       "@/utils/*": ["./app/utils/*"],
       "@/*": ["./*"]
