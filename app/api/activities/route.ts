@@ -19,9 +19,12 @@ async function GET(): Promise<NextResponse<ActivitiesEndpoint.GetResponse>> {
     const data = (await client
       .db("database")
       .collection("activities")
-      .findOne({
-        userId: ObjectId.createFromHexString(user.id),
-      })) as Activities;
+      .findOne(
+        {
+          userId: ObjectId.createFromHexString(user.id),
+        },
+        { projection: { _id: 0, userId: 0 } },
+      )) as Activities | null;
 
     if (!data || !data.activities)
       return NextResponse.json<ActivitiesEndpoint.GetResponse>(

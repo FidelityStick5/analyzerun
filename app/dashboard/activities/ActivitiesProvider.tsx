@@ -11,6 +11,7 @@ export type ActivitiesContextType = {
   >;
   timestamp: Activities["timestamp"];
   setTimestamp: React.Dispatch<React.SetStateAction<Activities["timestamp"]>>;
+  loading: boolean;
 };
 
 const initialActivitiesContextState: ActivitiesContextType = {
@@ -18,6 +19,7 @@ const initialActivitiesContextState: ActivitiesContextType = {
   setActivities: () => {},
   timestamp: 0,
   setTimestamp: () => {},
+  loading: true,
 };
 
 export const ActivitiesContext = createContext<ActivitiesContextType>(
@@ -33,23 +35,25 @@ export default function ActivitiesProvider({
     useState<ActivitiesContextType["activities"]>(undefined);
   const [timestamp, setTimestamp] =
     useState<ActivitiesContextType["timestamp"]>(0);
+  const [_, setLoading] = useState<boolean>(true);
 
-  const { data } = useFetchWithCache<Activities | undefined>(
+  const { data, loading } = useFetchWithCache<Activities | undefined>(
     "activities",
     "/api/activities",
     undefined,
   );
 
   useEffect(() => {
-    if (!data || !data._id) return;
+    if (!data || !data.activities) return;
 
     setActivities(data.activities);
     setTimestamp(data.timestamp);
+    setLoading(loading);
   }, [data]);
 
   return (
     <ActivitiesContext.Provider
-      value={{ activities, setActivities, timestamp, setTimestamp }}
+      value={{ activities, setActivities, timestamp, setTimestamp, loading }}
     >
       {children}
     </ActivitiesContext.Provider>

@@ -33,9 +33,11 @@ export default function useFetchWithCache<T>(
         setData(result.data);
         setLoading(false);
 
+        if (!result.data) return;
+
         localStorage.setItem(localStorageKey, JSON.stringify(result.data));
       } catch (error: any) {
-        if (error.name === "AbortError") return console.log("Aborted");
+        if (error.name === "AbortError") return console.log("Fetching aborted");
 
         setError(error.message);
         setLoading(false);

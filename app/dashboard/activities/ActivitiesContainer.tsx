@@ -6,6 +6,10 @@ import { ActivitiesContext } from "./ActivitiesProvider";
 import { SettingsContext } from "../SettingsProvider";
 import { Activity } from "@/types/globals";
 
+function ErrorMessage({ text }: { text: string }) {
+  return <div className="p-4">{text}</div>;
+}
+
 function ActivityContainer({
   activity,
   delay,
@@ -26,32 +30,28 @@ function ActivityContainer({
 }
 
 export default function ActivitiesContainer({ page }: { page: number }) {
-  const { activities } = useContext(ActivitiesContext);
+  const { activities, loading } = useContext(ActivitiesContext);
   const { settings } = useContext(SettingsContext);
 
   const activitiesPerPage = settings?.activitiesPerPage || 30;
 
+  if (loading) return <ErrorMessage text="Loading activities" />;
+  if (!activities || activities.length === 0)
+    return <ErrorMessage text="No activities" />;
+  if (page >= Math.ceil(activities?.length / activitiesPerPage) || page < 0)
+    return <ErrorMessage text="Page does not exist" />;
+
   return (
     <div className="grid grid-cols-1 grid-rows-[repeat(auto-fill,4rem)] gap-4 p-4 lg:grid-cols-2 xl:grid-cols-3">
-      {activities ? (
-        activities.length === 0 ? (
-          <>No activities</>
-        ) : page >= Math.ceil(activities?.length / 30) || page < 0 ? (
-          <>Page does not exist</>
-        ) : (
-          activities
-            .slice(page * activitiesPerPage, (page + 1) * activitiesPerPage)
-            .map((activity, index) => (
-              <ActivityContainer
-                activity={activity}
-                delay={20 * index}
-                key={activity._id.toString()}
-              />
-            ))
-        )
-      ) : (
-        <>Loading activities</>
-      )}
+      {activities
+        .slice(page * activitiesPerPage, (page + 1) * activitiesPerPage)
+        .map((activity, index) => (
+          <ActivityContainer
+            activity={activity}
+            delay={20 * index}
+            key={activity._id.toString()}
+          />
+        ))}
     </div>
   );
 }

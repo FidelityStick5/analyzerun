@@ -14,8 +14,8 @@ namespace ActivitiesEndpoint {
 
 namespace SettingsEndpoint {
   type Data = DataWrapper<Settings>;
-  type GetResponse = ResponseWrapper<Data>;
-  type PostResponse = ResponseWrapper<Data>;
+  type GetResponse = ResponseWrapper<Data & { timestamp?: number }>;
+  type PostResponse = ResponseWrapper<{ insertedCount?: number }>;
   type PutResponse = ResponseWrapper<{ updatedCount: number }>;
   type DeleteResponse = ResponseWrapper<{ deletedCount: number }>;
 }

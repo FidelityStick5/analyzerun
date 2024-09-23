@@ -54,8 +54,8 @@ async function POST(
         { status: 401 },
       );
 
-    const data = await request.formData();
-    const blob = data.get("file");
+    const formData = await request.formData();
+    const blob = formData.get("file");
 
     if (!(blob instanceof Blob) || blob.type !== "text/csv")
       return NextResponse.json<ActivitiesEndpoint.PostResponse>(
@@ -73,7 +73,7 @@ async function POST(
     const fileBuffer = Buffer.from(arrayBuffer);
     const convertedData = convertCSVtoJSON(fileBuffer);
 
-    const response = (await client
+    const data = (await client
       .db("database")
       .collection("activities")
       .findOneAndUpdate(
@@ -89,23 +89,21 @@ async function POST(
             activities: { $each: convertedData },
           } as PushOperator<Document>,
         },
-        { upsert: true, returnDocument: "after" },
-      )) as Activities;
+        {
+          projection: { _id: 0, userId: 0 },
+          upsert: true,
+          returnDocument: "after",
+        },
+      )) as Activities | null;
 
-    if (!response)
+    if (!data)
       return NextResponse.json<ActivitiesEndpoint.PostResponse>(
         { message: "Coundn't insert activities" },
         { status: 500 },
       );
 
-    if (!response._id)
-      return NextResponse.json<ActivitiesEndpoint.PostResponse>(
-        { message: "Couldn't retrieve id" },
-        { status: 500 },
-      );
-
     return NextResponse.json<ActivitiesEndpoint.PostResponse>(
-      { data: response, insertedCount: convertedData.length, message: "OK" },
+      { data, insertedCount: convertedData.length, message: "OK" },
       { status: 201 },
     );
   } catch {

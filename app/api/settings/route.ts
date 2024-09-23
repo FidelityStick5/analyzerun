@@ -19,9 +19,12 @@ async function GET() {
     const data = (await client
       .db("database")
       .collection("settings")
-      .findOne({
-        userId: ObjectId.createFromHexString(user.id),
-      })) as Settings;
+      .findOne(
+        {
+          userId: ObjectId.createFromHexString(user.id),
+        },
+        { projection: { _id: 0, userId: 0 } },
+      )) as Settings | null;
 
     if (!data)
       return NextResponse.json<SettingsEndpoint.GetResponse>(

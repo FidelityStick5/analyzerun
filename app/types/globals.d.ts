@@ -39,16 +39,22 @@ export type Activity = {
 };
 
 export type Activities = {
-  _id: ObjectId;
-  userId: ObjectId;
   timestamp: number;
   activities: Array<Activity>;
 };
 
-export type Settings = {
+export type DatabaseActivities = {
   _id: ObjectId;
   userId: ObjectId;
+} & Activities;
+
+export type Settings = {
   age: number;
   theme: "bright" | "dark" | "dracula";
   activitiesPerPage: number;
 };
+
+export type DatabaseSettings = {
+  _id: ObjectId;
+  userId: ObjectId;
+} & Settings;

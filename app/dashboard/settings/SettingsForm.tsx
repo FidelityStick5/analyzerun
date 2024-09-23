@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { SettingsContext } from "../SettingsProvider";
 
 export default function SettingsForm() {
-  const { setSettings } = useContext(SettingsContext);
+  const { settings, setSettings } = useContext(SettingsContext);
   const [loading, setLoading] = useState<boolean>(false);
 
   const saveSettings = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -12,7 +12,6 @@ export default function SettingsForm() {
     setLoading(true);
 
     const formData = new FormData(event.currentTarget);
-
     const data = {
       age: parseInt(formData.get("age") as string) || undefined,
       activitiesPerPage:
@@ -40,6 +39,7 @@ export default function SettingsForm() {
         max="100"
         step="1"
         name="age"
+        defaultValue={settings?.age}
         placeholder="Your age"
         className="h-12 w-full appearance-none rounded bg-dracula-selection px-4 text-dracula-foreground outline-none"
         required
@@ -52,6 +52,7 @@ export default function SettingsForm() {
         max="100"
         step="1"
         name="activities-per-page"
+        defaultValue={settings?.activitiesPerPage}
         placeholder="Activities per page (default 30)"
         className="h-12 w-full appearance-none rounded bg-dracula-selection px-4 text-dracula-foreground outline-none"
         required
@@ -59,6 +60,7 @@ export default function SettingsForm() {
 
       <select
         name="theme"
+        defaultValue={settings?.theme}
         className="h-12 w-full appearance-none rounded bg-dracula-selection px-4 text-dracula-foreground outline-none"
         required
       >

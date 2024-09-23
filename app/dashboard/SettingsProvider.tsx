@@ -21,8 +21,6 @@ export const SettingsContext = createContext<SettingsContextType>(
 );
 
 const initialSettings: Partial<Settings> = {
-  _id: undefined,
-  userId: undefined,
   activitiesPerPage: 30,
   age: undefined,
   theme: "dark",
@@ -43,7 +41,7 @@ export default function SettingsProvider({
   );
 
   useEffect(() => {
-    if (!data._id) return;
+    if (!data) return;
 
     setSettings(data);
   }, [data]);

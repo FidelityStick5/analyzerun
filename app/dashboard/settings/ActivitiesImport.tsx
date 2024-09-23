@@ -12,9 +12,7 @@ export default function ActivitiesImport() {
     setLoading(true);
 
     const formData = new FormData(event.currentTarget);
-
     const blob = formData.get("file");
-
     if (!(blob instanceof Blob) || blob.size === 0) return;
 
     const response = await fetch("/api/activities/import", {
