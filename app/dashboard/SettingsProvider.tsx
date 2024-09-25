@@ -9,21 +9,41 @@ export type SettingsContextType = {
   setSettings: React.Dispatch<
     React.SetStateAction<Partial<Settings> | undefined>
   >;
+  isSettingsContextLoading: boolean;
 };
 
 const initialSettingsContextState: SettingsContextType = {
   settings: undefined,
   setSettings: () => {},
+  isSettingsContextLoading: true,
 };
 
 export const SettingsContext = createContext<SettingsContextType>(
   initialSettingsContextState,
 );
 
-const initialSettings: Partial<Settings> = {
-  activitiesPerPage: 30,
-  age: undefined,
-  theme: "dark",
+const themes = {
+  light: {
+    "--foreground": "#F8F8F2",
+    "--background": "#282A36",
+    "--selection": "#44475A",
+    "--comment": "#6272A4",
+    "--purple": "#BD93F9",
+  },
+  dark: {
+    "--foreground": "#F8F8F2",
+    "--background": "#282A36",
+    "--selection": "#44475A",
+    "--comment": "#6272A4",
+    "--purple": "#BD93F9",
+  },
+  dracula: {
+    "--foreground": "#F8F8F2",
+    "--background": "#282A36",
+    "--selection": "#44475A",
+    "--comment": "#6272A4",
+    "--purple": "#BD93F9",
+  },
 };
 
 export default function SettingsProvider({
@@ -32,13 +52,11 @@ export default function SettingsProvider({
   children: Readonly<React.ReactNode>;
 }) {
   const [settings, setSettings] =
-    useState<SettingsContextType["settings"]>(initialSettings);
+    useState<SettingsContextType["settings"]>(undefined);
 
-  const { data } = useFetchWithCache<Partial<Settings>>(
-    "settings",
-    "/api/settings",
-    initialSettings,
-  );
+  const { data, isLoading: isSettingsContextLoading } = useFetchWithCache<
+    Settings | undefined
+  >("settings", "/api/settings", undefined);
 
   useEffect(() => {
     if (!data) return;
@@ -46,8 +64,22 @@ export default function SettingsProvider({
     setSettings(data);
   }, [data]);
 
+  useEffect(() => {
+    if (!settings?.theme) return;
+
+    Object.entries(themes[settings.theme]).forEach(([key, value]) => {
+      document.documentElement.style.setProperty(key, value);
+    });
+  }, [settings]);
+
   return (
-    <SettingsContext.Provider value={{ settings, setSettings }}>
+    <SettingsContext.Provider
+      value={{
+        settings,
+        setSettings,
+        isSettingsContextLoading,
+      }}
+    >
       {children}
     </SettingsContext.Provider>
   );

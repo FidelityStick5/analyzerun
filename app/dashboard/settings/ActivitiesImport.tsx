@@ -5,11 +5,11 @@ import { useState } from "react";
 
 export default function ActivitiesImport() {
   const [importedCount, setImportedCount] = useState<number>();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isImporting, setIsImporting] = useState<boolean>(false);
 
   const importActivities = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setLoading(true);
+    setIsImporting(true);
 
     const formData = new FormData(event.currentTarget);
     const blob = formData.get("file");
@@ -26,7 +26,7 @@ export default function ActivitiesImport() {
 
     localStorage.setItem("activities", JSON.stringify(result.data));
     setImportedCount(result.insertedCount);
-    setLoading(false);
+    setIsImporting(false);
   };
 
   return (
@@ -44,9 +44,9 @@ export default function ActivitiesImport() {
         <button
           type="submit"
           className="rounded bg-dracula-comment p-4 hover:bg-dracula-purple disabled:bg-dracula-selection"
-          disabled={loading}
+          disabled={isImporting}
         >
-          {loading ? "Importing file..." : "Import CSV from Garmin Connect"}
+          {isImporting ? "Importing file..." : "Import CSV from Garmin Connect"}
         </button>
       </form>
       {importedCount && <>Successfully imported {importedCount} activities</>}

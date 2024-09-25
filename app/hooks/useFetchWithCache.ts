@@ -6,7 +6,7 @@ export default function useFetchWithCache<T>(
   initialData: T,
 ) {
   const [data, setData] = useState<T>(initialData);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function useFetchWithCache<T>(
         const cachedData = localStorage.getItem(localStorageKey);
         if (cachedData) {
           setData(JSON.parse(cachedData));
-          setLoading(false);
+          setIsLoading(false);
 
           return;
         }
@@ -31,7 +31,7 @@ export default function useFetchWithCache<T>(
         const result = await response.json();
 
         setData(result.data);
-        setLoading(false);
+        setIsLoading(false);
 
         if (!result.data) return;
 
@@ -40,12 +40,12 @@ export default function useFetchWithCache<T>(
         if (error.name === "AbortError") return console.log("Fetching aborted");
 
         setError(error.message);
-        setLoading(false);
+        setIsLoading(false);
       }
     })();
 
     return () => controller.abort();
   }, [localStorageKey, url]);
 
-  return { data, loading, error };
+  return { data, isLoading, error };
 }

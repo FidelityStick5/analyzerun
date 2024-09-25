@@ -2,21 +2,23 @@
 
 import { useContext, useState } from "react";
 import { SettingsContext } from "../SettingsProvider";
+import { Settings } from "@/types/globals";
 
 export default function SettingsForm() {
-  const { settings, setSettings } = useContext(SettingsContext);
-  const [loading, setLoading] = useState<boolean>(false);
+  const { settings, setSettings, isSettingsContextLoading } =
+    useContext(SettingsContext);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
 
   const saveSettings = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setLoading(true);
+    setIsSaving(true);
 
     const formData = new FormData(event.currentTarget);
-    const data = {
-      age: parseInt(formData.get("age") as string) || undefined,
+    const data: Settings = {
+      age: parseInt(formData.get("age") as string) || 0,
       activitiesPerPage:
         parseInt(formData.get("activities-per-page") as string) || 20,
-      theme: (formData.get("theme") as "bright" | "dark" | "dracula") ?? "dark",
+      theme: (formData.get("theme") as Settings["theme"]) || "dark",
     };
 
     const response = await fetch("/api/settings", {
@@ -27,8 +29,11 @@ export default function SettingsForm() {
 
     localStorage.setItem("settings", JSON.stringify(data));
     setSettings(data);
-    setLoading(false);
+    setIsSaving(false);
   };
+
+  if (isSettingsContextLoading) return <>Loading settings...</>;
+  if (!settings) return null;
 
   return (
     <form onSubmit={saveSettings} className="flex flex-col gap-4">
@@ -39,7 +44,7 @@ export default function SettingsForm() {
         max="100"
         step="1"
         name="age"
-        defaultValue={settings?.age}
+        defaultValue={settings.age}
         placeholder="Your age"
         className="h-12 w-full appearance-none rounded bg-dracula-selection px-4 text-dracula-foreground outline-none"
         required
@@ -52,7 +57,7 @@ export default function SettingsForm() {
         max="100"
         step="1"
         name="activities-per-page"
-        defaultValue={settings?.activitiesPerPage}
+        defaultValue={settings.activitiesPerPage}
         placeholder="Activities per page (default 30)"
         className="h-12 w-full appearance-none rounded bg-dracula-selection px-4 text-dracula-foreground outline-none"
         required
@@ -60,21 +65,21 @@ export default function SettingsForm() {
 
       <select
         name="theme"
-        defaultValue={settings?.theme}
+        defaultValue={settings.theme}
         className="h-12 w-full appearance-none rounded bg-dracula-selection px-4 text-dracula-foreground outline-none"
         required
       >
+        <option value="light">Light</option>
         <option value="dark">Dark</option>
-        <option value="bright">Bright</option>
         <option value="dracula">Dracula</option>
       </select>
 
       <button
         type="submit"
         className="w-full rounded bg-dracula-comment p-4 hover:bg-dracula-purple disabled:bg-dracula-selection"
-        disabled={loading}
+        disabled={isSaving}
       >
-        {loading ? "Saving settings..." : "Save settings"}
+        {isSaving ? "Saving settings..." : "Save settings"}
       </button>
     </form>
   );

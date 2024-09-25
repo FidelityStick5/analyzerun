@@ -30,12 +30,14 @@ function ActivityContainer({
 }
 
 export default function ActivitiesContainer({ page }: { page: number }) {
-  const { activities, loading } = useContext(ActivitiesContext);
+  const { activities, isActivitiesContextLoading } =
+    useContext(ActivitiesContext);
   const { settings } = useContext(SettingsContext);
 
   const activitiesPerPage = settings?.activitiesPerPage || 30;
 
-  if (loading) return <ErrorMessage text="Loading activities" />;
+  if (isActivitiesContextLoading)
+    return <ErrorMessage text="Loading activities" />;
   if (!activities || activities.length === 0)
     return <ErrorMessage text="No activities" />;
   if (page >= Math.ceil(activities?.length / activitiesPerPage) || page < 0)
