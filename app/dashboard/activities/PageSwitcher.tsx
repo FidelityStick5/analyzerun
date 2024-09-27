@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
-import { ActivitiesContext } from "./ActivitiesProvider";
-import { SettingsContext } from "../SettingsProvider";
+import { ActivitiesContext } from "@/providers/ActivitiesProvider";
+import { SettingsContext } from "@/providers/SettingsProvider";
 
 export default function PageSwitcher({ page }: { page: number }) {
   const { activities } = useContext(ActivitiesContext);

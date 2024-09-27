@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useContext } from "react";
-import { ActivitiesContext } from "./ActivitiesProvider";
-import { SettingsContext } from "../SettingsProvider";
+import { ActivitiesContext } from "@/providers/ActivitiesProvider";
+import { SettingsContext } from "@/providers/SettingsProvider";
 import { Activity } from "@/types/globals";
 
 function ErrorMessage({ text }: { text: string }) {

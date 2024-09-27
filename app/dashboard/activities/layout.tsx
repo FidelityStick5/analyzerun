@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ActivitiesProvider from "./ActivitiesProvider";
+import ActivitiesProvider from "@/providers/ActivitiesProvider";
 
 export const metadata: Metadata = {
   title: "Analyzerun",

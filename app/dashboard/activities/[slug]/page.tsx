@@ -1,7 +1,6 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import { ActivitiesContext } from "../ActivitiesProvider";
 import GridTile from "@/components/GridTile";
 import CaloriesIcon from "@/icons/calories.svg";
 import DateIcon from "@/icons/time.svg";
@@ -12,6 +11,7 @@ import Vo2MaxIcon from "@/icons/vo2max.svg";
 import TimeIcon from "@/icons/timer.svg";
 import TitleIcon from "@/icons/tag.svg";
 import SpeedIcon from "@/icons/speed.svg";
+import { ActivitiesContext } from "@/providers/ActivitiesProvider";
 import { Activity } from "@/types/globals";
 
 function ErrorMessage({ text }: { text: string }) {

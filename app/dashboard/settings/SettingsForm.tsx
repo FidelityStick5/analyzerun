@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext, useState } from "react";
-import { SettingsContext } from "../SettingsProvider";
+import { SettingsContext } from "@/providers/SettingsProvider";
 import { Settings } from "@/types/globals";
 
 export default function SettingsForm() {
