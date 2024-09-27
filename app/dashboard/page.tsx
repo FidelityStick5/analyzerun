@@ -6,7 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function DashboardPage() {
-  return (
-    <div className="bg-dracula-background p-4 md:rounded">DashboardPage</div>
-  );
+  return <div className="bg-background p-4 md:rounded">DashboardPage</div>;
 }

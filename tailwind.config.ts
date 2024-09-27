@@ -24,13 +24,11 @@ const config: Config = {
         },
       },
       colors: {
-        dracula: {
-          foreground: "var(--foreground)",
-          background: "var(--background)",
-          selection: "var(--selection)",
-          comment: "var(--comment)",
-          purple: "var(--purple)",
-        },
+        text: "var(--text)",
+        background: "var(--background)",
+        primary: "var(--primary)",
+        secondary: "var(--secondary)",
+        accent: "var(--accent)",
       },
     },
   },

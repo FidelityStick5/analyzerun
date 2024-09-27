@@ -45,7 +45,7 @@ export default function SettingsForm() {
         name="age"
         defaultValue={settings?.age}
         placeholder="Your age"
-        className="h-12 w-full appearance-none rounded bg-dracula-selection px-4 text-dracula-foreground outline-none"
+        className="bg-primary text-text h-12 w-full appearance-none rounded px-4 outline-none"
         required
       />
 
@@ -58,7 +58,7 @@ export default function SettingsForm() {
         name="activities-per-page"
         defaultValue={settings?.activitiesPerPage}
         placeholder="Activities per page (default 30)"
-        className="h-12 w-full appearance-none rounded bg-dracula-selection px-4 text-dracula-foreground outline-none"
+        className="bg-primary text-text h-12 w-full appearance-none rounded px-4 outline-none"
         required
       />
 
@@ -71,7 +71,7 @@ export default function SettingsForm() {
             theme: e.currentTarget.value as "light" | "dark" | "dracula",
           })
         }
-        className="h-12 w-full appearance-none rounded bg-dracula-selection px-4 text-dracula-foreground outline-none"
+        className="bg-primary text-text h-12 w-full appearance-none rounded px-4 outline-none"
         required
       >
         <option value="light">Light</option>
@@ -81,7 +81,7 @@ export default function SettingsForm() {
 
       <button
         type="submit"
-        className="w-full rounded bg-dracula-comment p-4 hover:bg-dracula-purple disabled:bg-dracula-selection"
+        className="bg-secondary hover:bg-accent disabled:bg-primary w-full rounded p-4"
         disabled={isSaving}
       >
         {isSaving ? "Saving settings..." : "Save settings"}

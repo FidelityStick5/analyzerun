@@ -32,7 +32,7 @@ export default function ActivitiesImport() {
   return (
     <div className="flex h-24 items-center gap-4">
       <form onSubmit={importActivities} className="flex gap-4">
-        <label className="inline-block cursor-pointer rounded bg-dracula-comment p-4 hover:bg-dracula-purple">
+        <label className="bg-secondary hover:bg-accent inline-block cursor-pointer rounded p-4">
           Select file
           <input
             type="file"
@@ -43,7 +43,7 @@ export default function ActivitiesImport() {
         </label>
         <button
           type="submit"
-          className="rounded bg-dracula-comment p-4 hover:bg-dracula-purple disabled:bg-dracula-selection"
+          className="bg-secondary hover:bg-accent disabled:bg-primary rounded p-4"
           disabled={isImporting}
         >
           {isImporting ? "Importing file..." : "Import CSV from Garmin Connect"}

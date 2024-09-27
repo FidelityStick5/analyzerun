@@ -24,25 +24,25 @@ export const SettingsContext = createContext<SettingsContextType>(
 
 const themes = {
   light: {
-    "--foreground": "#F8F8F2",
-    "--background": "#282A36",
-    "--selection": "#44475A",
-    "--comment": "#6272A4",
-    "--purple": "#BD93F9",
+    "--text": "#0a1112",
+    "--background": "#f6fafb",
+    "--primary": "#54a5b8",
+    "--secondary": "#a0d1de",
+    "--accent": "#74c3d6",
   },
   dark: {
-    "--foreground": "#F8F8F2",
-    "--background": "#282A36",
-    "--selection": "#44475A",
-    "--comment": "#6272A4",
-    "--purple": "#BD93F9",
+    "--text": "#dee1ef",
+    "--background": "#0c0e17",
+    "--primary": "#9fa5d0",
+    "--secondary": "#212a56",
+    "--accent": "#c0f12a",
   },
   dracula: {
-    "--foreground": "#F8F8F2",
+    "--text": "#F8F8F2",
     "--background": "#282A36",
-    "--selection": "#44475A",
-    "--comment": "#6272A4",
-    "--purple": "#BD93F9",
+    "--primary": "#44475A",
+    "--secondary": "#6272A4",
+    "--accent": "#BD93F9",
   },
 };
 

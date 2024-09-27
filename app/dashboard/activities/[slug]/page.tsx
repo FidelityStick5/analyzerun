@@ -16,7 +16,7 @@ import { Activity } from "@/types/globals";
 
 function ErrorMessage({ text }: { text: string }) {
   return (
-    <div className="flex items-center justify-center bg-dracula-background p-4 md:rounded">
+    <div className="bg-background flex items-center justify-center p-4 md:rounded">
       {text}
     </div>
   );
@@ -63,7 +63,7 @@ export default function ActivityPage({
   if (!activity) return <ErrorMessage text="No activity found" />;
 
   return (
-    <div className="grid grid-cols-1 gap-4 overflow-auto bg-dracula-background p-4 md:rounded xl:grid-cols-4 xl:grid-rows-6">
+    <div className="bg-background grid grid-cols-1 gap-4 overflow-auto p-4 md:rounded xl:grid-cols-4 xl:grid-rows-6">
       <GridTile
         title="Activity name"
         data={activity.title}

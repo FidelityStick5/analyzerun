@@ -14,7 +14,7 @@ export default function GridTile({
   return (
     <div
       title={title}
-      className={`relative flex items-center justify-center gap-4 overflow-hidden rounded border-2 border-dracula-selection bg-dracula-selection px-8 transition-colors hover:bg-dracula-background max-xl:min-h-24 ${gridSpan}`}
+      className={`border-primary bg-primary hover:bg-background relative flex items-center justify-center gap-4 overflow-hidden rounded border-2 px-8 transition-colors max-xl:min-h-24 ${gridSpan}`}
     >
       {Icon && (
         <Icon

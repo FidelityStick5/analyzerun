@@ -19,11 +19,11 @@ export default function PageSwitcher({ page }: { page: number }) {
   const isNextDisabled = page + 1 >= totalPages;
 
   return (
-    <div className="flex h-16 items-center justify-between border-t-2 border-t-dracula-selection p-4">
+    <div className="border-t-primary flex h-16 items-center justify-between border-t-2 p-4">
       <button
         onClick={() => replace(`/dashboard/activities?page=${page - 1}`)}
         disabled={isPreviousDisabled}
-        className="disabled:text-dracula-comment"
+        className="disabled:text-secondary"
       >
         Previous page
       </button>
@@ -31,7 +31,7 @@ export default function PageSwitcher({ page }: { page: number }) {
       <button
         onClick={() => replace(`/dashboard/activities?page=${page + 1}`)}
         disabled={isNextDisabled}
-        className="disabled:text-dracula-comment"
+        className="disabled:text-secondary"
       >
         Next page
       </button>

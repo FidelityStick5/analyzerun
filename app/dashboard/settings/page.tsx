@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function SettingsPage() {
   return (
-    <div className="bg-dracula-background p-4 md:rounded">
+    <div className="bg-background p-4 md:rounded">
       <SettingsForm />
       <ActivitiesImport />
     </div>
