@@ -33,7 +33,6 @@ export default function SettingsForm() {
   };
 
   if (isSettingsContextLoading) return <>Loading settings...</>;
-  if (!settings) return null;
 
   return (
     <form onSubmit={saveSettings} className="flex flex-col gap-4">
@@ -44,7 +43,7 @@ export default function SettingsForm() {
         max="100"
         step="1"
         name="age"
-        defaultValue={settings.age}
+        defaultValue={settings?.age}
         placeholder="Your age"
         className="h-12 w-full appearance-none rounded bg-dracula-selection px-4 text-dracula-foreground outline-none"
         required
@@ -57,7 +56,7 @@ export default function SettingsForm() {
         max="100"
         step="1"
         name="activities-per-page"
-        defaultValue={settings.activitiesPerPage}
+        defaultValue={settings?.activitiesPerPage}
         placeholder="Activities per page (default 30)"
         className="h-12 w-full appearance-none rounded bg-dracula-selection px-4 text-dracula-foreground outline-none"
         required
@@ -65,7 +64,13 @@ export default function SettingsForm() {
 
       <select
         name="theme"
-        defaultValue={settings.theme}
+        value={settings?.theme || "dark"}
+        onChange={(e) =>
+          setSettings({
+            ...settings,
+            theme: e.currentTarget.value as "light" | "dark" | "dracula",
+          })
+        }
         className="h-12 w-full appearance-none rounded bg-dracula-selection px-4 text-dracula-foreground outline-none"
         required
       >

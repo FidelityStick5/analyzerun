@@ -2,7 +2,7 @@
 
 import { useContext, useEffect, useState } from "react";
 import { ActivitiesContext } from "../ActivitiesProvider";
-import { Activity } from "@/types/globals";
+import GridTile from "@/components/GridTile";
 import CaloriesIcon from "@/icons/calories.svg";
 import DateIcon from "@/icons/time.svg";
 import DistanceIcon from "@/icons/distance.svg";
@@ -12,6 +12,7 @@ import Vo2MaxIcon from "@/icons/vo2max.svg";
 import TimeIcon from "@/icons/timer.svg";
 import TitleIcon from "@/icons/tag.svg";
 import SpeedIcon from "@/icons/speed.svg";
+import { Activity } from "@/types/globals";
 
 function ErrorMessage({ text }: { text: string }) {
   return (
@@ -21,52 +22,22 @@ function ErrorMessage({ text }: { text: string }) {
   );
 }
 
-function GridTile({
-  title,
-  data,
-  Icon,
-  iconColor,
-  gridSpan,
-}: {
-  title: string;
-  data: string | number;
-  Icon?: React.FC<React.SVGProps<SVGElement>>;
-  iconColor?: string;
-  gridSpan?: string;
-}) {
-  return (
-    <div
-      title={title}
-      className={`relative flex items-center justify-center gap-4 overflow-hidden rounded border-2 border-dracula-selection bg-dracula-selection px-8 transition-colors hover:bg-dracula-background max-xl:min-h-24 ${gridSpan}`}
-    >
-      {Icon && (
-        <Icon
-          className="pointer-events-none absolute -left-20 h-56 w-auto opacity-20 transition-[height] duration-1000 ease-in-out"
-          style={{ fill: iconColor ?? "currentcolor" }}
-        />
-      )}
-      <div className="text-2xl">{data}</div>
-    </div>
-  );
-}
-
 export default function ActivityPage({
   params: { slug },
 }: {
   params: { slug: string };
 }) {
-  const { activities } = useContext(ActivitiesContext);
+  const { activities, isActivitiesContextLoading } =
+    useContext(ActivitiesContext);
   const [activity, setActivity] = useState<Activity>();
-  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (!activities) return setLoading(false);
+    if (!activities) return;
 
     const foundActivity: Activity | undefined =
       activities.find(({ _id }) => _id.toString() === slug) ?? undefined;
 
     setActivity(foundActivity);
-    setLoading(false);
   }, [activities]);
 
   const convertTimeToMinutes = (timeString: string): number => {
@@ -87,7 +58,8 @@ export default function ActivityPage({
     return vo2 / vo2maxPercent;
   };
 
-  if (loading) return <ErrorMessage text="Loading activity" />;
+  if (isActivitiesContextLoading)
+    return <ErrorMessage text="Loading activity" />;
   if (!activity) return <ErrorMessage text="No activity found" />;
 
   return (
