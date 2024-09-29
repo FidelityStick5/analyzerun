@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --foreground: #f8f8f2;
-  --background: #282a36;
-  --selection: #44475a;
-  --comment: #6272a4;
-  --purple: #bd93f9;
+  --text: #dee1ef;
+  --background: #0c0e17;
+  --primary: #9fa5d0;
+  --secondary: #212a56;
+  --secondary20: #101323;
+  --accent: #c0f12a;
 }

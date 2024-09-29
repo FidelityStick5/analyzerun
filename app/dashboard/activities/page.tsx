@@ -15,7 +15,7 @@ export default function ActivitiesPage({
   const convertedPage = searchParams.page ? parseInt(searchParams.page) : 0;
 
   return (
-    <div className="bg-background grid grid-rows-[1fr,4rem] overflow-auto md:rounded">
+    <div className="bg-secondary20 grid grid-rows-[1fr,4rem] overflow-auto md:rounded">
       <ActivitiesContainer page={convertedPage} />
       <PageSwitcher page={convertedPage} />
     </div>

@@ -21,7 +21,7 @@ export default async function RootLayout({
   return (
     <SettingsProvider>
       <ActivitiesProvider>
-        <main className="bg-primary text-text grid h-screen w-screen grid-cols-1 grid-rows-[1fr,6rem] md:grid-cols-[16rem,1fr] md:grid-rows-1 md:gap-4 md:p-4">
+        <main className="grid h-screen w-screen grid-cols-1 grid-rows-[1fr,6rem] bg-background text-text md:grid-cols-[16rem,1fr] md:grid-rows-1 md:gap-4 md:p-4">
           <Navbar />
           {children}
         </main>

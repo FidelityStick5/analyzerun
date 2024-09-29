@@ -20,7 +20,7 @@ function ActivityContainer({
   return (
     <Link
       href={`/dashboard/activities/${activity._id.toString()}`}
-      className={`bg-primary hover:bg-accent flex h-16 animate-fadeIn items-center justify-between rounded px-4 opacity-0 transition-colors`}
+      className={`bg-primary hover:bg-accent text-background flex h-16 animate-fadeIn items-center justify-between rounded px-4 opacity-0 transition-colors`}
       style={{ animationDelay: `${delay}ms` }}
     >
       <div>{activity.title}</div>

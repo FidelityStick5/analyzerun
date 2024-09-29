@@ -36,7 +36,7 @@ function NavbarElement({ name, path, Icon, isActive }: NavbarElementType) {
   return (
     <Link
       href={path}
-      className={`flex h-full items-center justify-center rounded transition-colors max-md:flex-grow max-md:flex-col md:h-16 md:w-full md:justify-start md:gap-4 md:px-4 ${isActive ? "bg-background fill-accent text-accent hover:fill-text hover:text-text" : "fill-text text-text hover:fill-accent hover:text-accent"}`}
+      className={`flex h-full items-center justify-center rounded transition-colors max-md:flex-grow max-md:flex-col md:h-16 md:w-full md:justify-start md:gap-4 md:px-4 ${isActive ? "bg-secondary fill-accent text-accent" : "fill-text text-text hover:fill-accent hover:text-accent"}`}
     >
       <Icon className="h-8 w-8 fill-inherit md:h-12 md:w-12" />
       <span className="text-xs md:text-sm">{name}</span>

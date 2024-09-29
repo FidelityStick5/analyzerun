@@ -28,6 +28,7 @@ const config: Config = {
         background: "var(--background)",
         primary: "var(--primary)",
         secondary: "var(--secondary)",
+        secondary20: "var(--secondary20)",
         accent: "var(--accent)",
       },
     },

@@ -1,10 +1,16 @@
 "use client";
 
+import { useContext, useState } from "react";
+import ImportFileIcon from "@/icons/file.svg";
+import UploadFileIcon from "@/icons/upload.svg";
+import { ActivitiesContext } from "@/providers/ActivitiesProvider";
 import { ActivitiesEndpoint } from "@/types/endpoints";
-import { useState } from "react";
 
 export default function ActivitiesImport() {
-  const [importedCount, setImportedCount] = useState<number>();
+  const { setActivities, setTimestamp } = useContext(ActivitiesContext);
+  const [importedCount, setImportedCount] = useState<number | undefined>(
+    undefined,
+  );
   const [isImporting, setIsImporting] = useState<boolean>(false);
 
   const importActivities = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -25,15 +31,24 @@ export default function ActivitiesImport() {
     if (!result.data.activities) return result.message;
 
     localStorage.setItem("activities", JSON.stringify(result.data));
+    setActivities(result.data.activities);
+    setTimestamp(result.data.timestamp);
     setImportedCount(result.insertedCount);
     setIsImporting(false);
   };
 
+  if (importedCount)
+    return <span>Successfully imported {importedCount} activities</span>;
+
   return (
-    <div className="flex h-24 items-center gap-4">
-      <form onSubmit={importActivities} className="flex gap-4">
-        <label className="bg-secondary hover:bg-accent inline-block cursor-pointer rounded p-4">
-          Select file
+    <div className="flex flex-col items-center gap-4">
+      <form onSubmit={importActivities} className="flex w-full gap-4">
+        <label className="flex flex-grow cursor-pointer items-center justify-between gap-4 rounded bg-primary p-4 text-center text-background transition-colors hover:border-accent hover:bg-accent disabled:bg-secondary disabled:text-primary">
+          <span>Select file</span>
+          <span className="max-sm:hidden">
+            <ImportFileIcon className="fill-secondary" />
+          </span>
+
           <input
             type="file"
             name="file"
@@ -43,13 +58,19 @@ export default function ActivitiesImport() {
         </label>
         <button
           type="submit"
-          className="bg-secondary hover:bg-accent disabled:bg-primary rounded p-4"
+          className="flex flex-grow items-center justify-between gap-4 rounded bg-primary p-4 text-background transition-colors hover:border-accent hover:bg-accent disabled:bg-secondary disabled:text-primary"
           disabled={isImporting}
         >
-          {isImporting ? "Importing file..." : "Import CSV from Garmin Connect"}
+          <span>
+            {isImporting
+              ? "Importing file..."
+              : "Import CSV from Garmin Connect"}
+          </span>
+          <span className="max-sm:hidden">
+            <UploadFileIcon className="fill-secondary" />
+          </span>
         </button>
       </form>
-      {importedCount && <>Successfully imported {importedCount} activities</>}
     </div>
   );
 }

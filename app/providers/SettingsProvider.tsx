@@ -28,6 +28,7 @@ const themes = {
     "--background": "#f6fafb",
     "--primary": "#54a5b8",
     "--secondary": "#a0d1de",
+    "--secondary20": "#a0d1de",
     "--accent": "#74c3d6",
   },
   dark: {
@@ -35,6 +36,7 @@ const themes = {
     "--background": "#0c0e17",
     "--primary": "#9fa5d0",
     "--secondary": "#212a56",
+    "--secondary20": "#101323",
     "--accent": "#c0f12a",
   },
   dracula: {
@@ -42,6 +44,7 @@ const themes = {
     "--background": "#282A36",
     "--primary": "#44475A",
     "--secondary": "#6272A4",
+    "--secondary20": "#6272A4",
     "--accent": "#BD93F9",
   },
 };
