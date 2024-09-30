@@ -12,6 +12,7 @@ export default function ActivitiesImport() {
     undefined,
   );
   const [isImporting, setIsImporting] = useState<boolean>(false);
+  const [filename, setFilename] = useState<string | undefined>(undefined);
 
   const importActivities = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -44,7 +45,7 @@ export default function ActivitiesImport() {
     <div className="flex flex-col items-center gap-4">
       <form onSubmit={importActivities} className="flex w-full gap-4">
         <label className="flex flex-grow cursor-pointer items-center justify-between gap-4 rounded bg-primary p-4 text-center text-background transition-colors hover:border-accent hover:bg-accent disabled:bg-secondary disabled:text-primary">
-          <span>Select file</span>
+          <span>{filename ? `Selected file: ${filename}` : "Select file"}</span>
           <span className="max-sm:hidden">
             <ImportFileIcon className="fill-secondary" />
           </span>
@@ -53,7 +54,14 @@ export default function ActivitiesImport() {
             type="file"
             name="file"
             accept=".csv,text/csv"
+            multiple={false}
             className="hidden"
+            onChange={(e) => {
+              const files = e.currentTarget.files;
+              if (!files || files.length === 0 || files.length > 1) return;
+
+              setFilename(files[0].name);
+            }}
           />
         </label>
         <button
