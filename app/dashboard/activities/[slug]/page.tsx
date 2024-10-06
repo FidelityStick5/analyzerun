@@ -16,7 +16,7 @@ import { Activity } from "@/types/globals";
 
 function ErrorMessage({ text }: { text: string }) {
   return (
-    <div className="bg-background flex items-center justify-center p-4 md:rounded">
+    <div className="flex items-center justify-center bg-secondary20 p-4 md:rounded">
       {text}
     </div>
   );
@@ -63,7 +63,7 @@ export default function ActivityPage({
   if (!activity) return <ErrorMessage text="No activity found" />;
 
   return (
-    <div className="bg-background grid grid-cols-1 gap-4 overflow-auto p-4 md:rounded xl:grid-cols-4 xl:grid-rows-6">
+    <div className="grid grid-cols-1 gap-4 overflow-auto bg-secondary20 p-4 md:rounded xl:grid-cols-4 xl:grid-rows-6">
       <GridTile
         title="Activity name"
         data={activity.title}
@@ -80,7 +80,10 @@ export default function ActivityPage({
       />
       <GridTile
         title="Activity date"
-        data={new Date(activity.date).toLocaleString()}
+        data={[
+          new Date(activity.date).toLocaleTimeString(),
+          new Date(activity.date).toLocaleDateString(),
+        ]}
         Icon={DateIcon}
         iconColor="#818cf8"
         gridSpan="xl:row-span-2"
@@ -101,52 +104,52 @@ export default function ActivityPage({
         gridSpan="xl:row-span-2"
       />
       <GridTile
-        title="Estimated burned calories during activity"
-        data={activity.calories + " calories"}
-        Icon={CaloriesIcon}
-        iconColor="#f87171"
-        gridSpan="xl:row-span-2"
-      />
-      <GridTile
-        title="Average pace during activity"
+        title="Average pace"
         data={activity.average_pace}
         Icon={SpeedIcon}
         iconColor="#fbbf24"
       />
       <GridTile
-        title="Best pace during activity"
-        data={activity.best_pace}
-        Icon={SpeedIcon}
-        iconColor="#fbbf24"
-      />
-
-      <GridTile
-        title="Average heart rate reached during activity"
+        title="Average heart rate"
         data={activity.average_heart_rate}
         Icon={HeartRateIcon}
         iconColor="#ef4444"
       />
       <GridTile
-        title="Estimated VO2Max basing on distance and time of activity"
+        title="Best pace"
+        data={activity.best_pace}
+        Icon={SpeedIcon}
+        iconColor="#fbbf24"
+      />
+      <GridTile
+        title="Max heart rate"
+        data={activity.max_heart_rate}
+        Icon={HeartRateIcon}
+        iconColor="#ef4444"
+      />
+
+      <GridTile
+        title="Minimum elevation"
+        data={activity.min_elevation}
+        Icon={ElevationIcon}
+        iconColor="#60a5fa"
+      />
+      <GridTile
+        title="Estimated VO2Max"
         data={estimateVO2Max(activity.distance, activity.time).toFixed(2)}
         Icon={Vo2MaxIcon}
         iconColor="#a78bfa"
         gridSpan="xl:col-span-2 xl:row-span-2"
       />
       <GridTile
-        title="Minimum elevation during activity"
-        data={activity.min_elevation}
-        Icon={ElevationIcon}
-        iconColor="#60a5fa"
+        title="Burned calories"
+        data={activity.calories + " calories"}
+        Icon={CaloriesIcon}
+        iconColor="#f87171"
+        gridSpan="xl:row-span-2"
       />
       <GridTile
-        title="Max heart rate reached during activity"
-        data={activity.max_heart_rate}
-        Icon={HeartRateIcon}
-        iconColor="#ef4444"
-      />
-      <GridTile
-        title="Maximum elevation during activity"
+        title="Maximum elevation"
         data={activity.max_elevation}
         Icon={ElevationIcon}
         iconColor="#60a5fa"

@@ -44,11 +44,15 @@ function NavbarElement({ name, path, Icon, isActive }: NavbarElementType) {
   );
 }
 
-export default function Navbar() {
+export default function Navbar({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   const location = usePathname();
 
   return (
-    <nav className="text-text flex items-center justify-center gap-4 max-md:order-1 max-md:p-4 md:flex-col md:justify-start">
+    <nav className="flex items-center justify-center gap-4 text-text max-md:order-1 max-md:p-4 md:flex-col md:justify-start">
       {navbarElements.map((navbarElement) => (
         <NavbarElement
           {...navbarElement}
@@ -56,6 +60,8 @@ export default function Navbar() {
           key={navbarElement.path}
         />
       ))}
+
+      {children}
     </nav>
   );
 }
