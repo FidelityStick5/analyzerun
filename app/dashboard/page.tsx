@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Summary from "./Summary";
 
 export const metadata: Metadata = {
   title: "Analyzerun - Checking performance...",
@@ -6,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function DashboardPage() {
-  return <div className="bg-background p-4 md:rounded">DashboardPage</div>;
+  return <Summary />;
 }

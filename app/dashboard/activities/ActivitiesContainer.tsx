@@ -20,7 +20,7 @@ function ActivityContainer({
   return (
     <Link
       href={`/dashboard/activities/${activity._id.toString()}`}
-      className={`bg-primary hover:bg-accent text-background flex h-16 animate-fadeIn items-center justify-between rounded px-4 opacity-0 transition-colors`}
+      className={`flex h-16 animate-fadeIn items-center justify-between rounded bg-primary px-4 text-background opacity-0 transition-colors hover:bg-accent`}
       style={{ animationDelay: `${delay}ms` }}
     >
       <div>{activity.title}</div>
@@ -39,7 +39,7 @@ export default function ActivitiesContainer({ page }: { page: number }) {
   if (isActivitiesContextLoading)
     return <ErrorMessage text="Loading activities" />;
   if (!activities || activities.length === 0)
-    return <ErrorMessage text="No activities" />;
+    return <ErrorMessage text="No activities found" />;
   if (page >= Math.ceil(activities?.length / activitiesPerPage) || page < 0)
     return <ErrorMessage text="Page does not exist" />;
 

@@ -58,3 +58,11 @@ export type DatabaseSettings = {
   _id: ObjectId;
   userId: ObjectId;
 } & Settings;
+
+export type UserSummary = {
+  averageVO2Max: number;
+  favoriteActivity: {
+    name: string;
+    count: number;
+  };
+};
