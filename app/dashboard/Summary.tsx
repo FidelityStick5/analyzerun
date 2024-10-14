@@ -74,10 +74,7 @@ export default function Summary() {
 
       <GridTile
         title="Favorite activity"
-        data={[
-          summary.favoriteActivity.name,
-          summary.favoriteActivity.count.toString(),
-        ]}
+        data={`${summary.favoriteActivity.count}x ${summary.favoriteActivity.name}`}
         gridSpan="col-span-2"
       />
     </div>
