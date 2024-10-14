@@ -11,7 +11,7 @@ export default function ActivityActions({ id }: { id: string }) {
   const router = useRouter();
 
   const deleteActivity = async () => {
-    const response = await fetch("/api/activities", {
+    const response = await fetch("/api/activity", {
       method: "DELETE",
       body: JSON.stringify({ id }),
     });
