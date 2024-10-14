@@ -6,8 +6,12 @@ import { ActivitiesContext } from "@/providers/ActivitiesProvider";
 import { SettingsContext } from "@/providers/SettingsProvider";
 import { Activity } from "@/types/globals";
 
-function ErrorMessage({ text }: { text: string }) {
-  return <div className="p-4">{text}</div>;
+function ErrorMessage({ children }: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <div className="row-span-2 flex items-center justify-center gap-1 p-4">
+      {children}
+    </div>
+  );
 }
 
 function ActivityContainer({
@@ -37,11 +41,22 @@ export default function ActivitiesContainer({ page }: { page: number }) {
   const activitiesPerPage = settings?.activitiesPerPage || 30;
 
   if (isActivitiesContextLoading)
-    return <ErrorMessage text="Loading activities" />;
+    return <ErrorMessage>Loading activities</ErrorMessage>;
   if (!activities || activities.length === 0)
-    return <ErrorMessage text="No activities found" />;
+    return (
+      <ErrorMessage>
+        <span>No activities found, You can import activities in</span>
+
+        <Link
+          className="underline transition-colors hover:text-accent"
+          href="/dashboard/settings"
+        >
+          dashboard settings
+        </Link>
+      </ErrorMessage>
+    );
   if (page >= Math.ceil(activities?.length / activitiesPerPage) || page < 0)
-    return <ErrorMessage text="Page does not exist" />;
+    return <ErrorMessage>Page does not exist</ErrorMessage>;
 
   return (
     <div className="grid grid-cols-1 grid-rows-[repeat(auto-fill,4rem)] gap-4 p-4 lg:grid-cols-2 xl:grid-cols-3">

@@ -8,7 +8,7 @@ import { UserSummary } from "@/types/globals";
 
 function ErrorMessage({ text }: { text: string }) {
   return (
-    <div className="flex h-full w-full items-center justify-center bg-secondary20 p-4 md:rounded">
+    <div className="flex items-center justify-center bg-secondary20 p-4 md:rounded">
       {text}
     </div>
   );
@@ -65,7 +65,7 @@ export default function Summary() {
     );
 
   return (
-    <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-4 bg-secondary20 p-4 md:rounded">
+    <div className="grid grid-cols-2 grid-rows-2 gap-4 bg-secondary20 p-4 md:rounded">
       <GridTile
         title="Average VO2Max of your running sessions"
         data={summary.averageVO2Max.toFixed(2)}
