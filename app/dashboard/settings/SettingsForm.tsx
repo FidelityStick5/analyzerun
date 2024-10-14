@@ -18,7 +18,7 @@ export default function SettingsForm() {
     const data: Settings = {
       activitiesPerPage:
         parseInt(formData.get("activities-per-page") as string) || 30,
-      theme: (formData.get("theme") as Settings["theme"]) || "dark",
+      theme: (formData.get("theme") as Settings["theme"]) || "dark-orange",
     };
 
     const response = await fetch("/api/settings", {
@@ -44,7 +44,7 @@ export default function SettingsForm() {
           max="120"
           step="1"
           name="activities-per-page"
-          value={settings?.activitiesPerPage}
+          value={settings?.activitiesPerPage || ""}
           onChange={(e) =>
             setSettings({
               ...settings,
@@ -63,7 +63,7 @@ export default function SettingsForm() {
       <div className="relative flex items-center">
         <select
           name="theme"
-          value={settings?.theme || "dark"}
+          value={settings?.theme || "dark-orange"}
           onChange={(e) =>
             setSettings({
               ...settings,

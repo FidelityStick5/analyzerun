@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import SettingsForm from "./SettingsForm";
+import ActivitiesDeleter from "./ActivitiesDeleter";
 import ActivitiesImport from "./ActivitiesImport";
 
 export const metadata: Metadata = {
@@ -14,6 +15,7 @@ export default function SettingsPage() {
       <SettingsForm />
       <div className="text-2xl font-semibold">Data management</div>
       <ActivitiesImport />
+      <ActivitiesDeleter />
     </div>
   );
 }

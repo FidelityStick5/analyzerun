@@ -44,4 +44,40 @@ async function GET(): Promise<NextResponse<ActivitiesEndpoint.GetResponse>> {
   }
 }
 
-export { GET };
+async function DELETE(): Promise<
+  NextResponse<ActivitiesEndpoint.DeleteResponse>
+> {
+  try {
+    const { user } = await getUser();
+    if (!user?.id)
+      return NextResponse.json<ActivitiesEndpoint.DeleteResponse>(
+        { message: "Unauthorized" },
+        { status: 401 },
+      );
+
+    console.log(user);
+
+    const data = await client
+      .db("database")
+      .collection("activities")
+      .deleteOne({ userId: ObjectId.createFromHexString(user.id) });
+
+    if (!data || data.deletedCount === 0)
+      return NextResponse.json<ActivitiesEndpoint.DeleteResponse>(
+        { message: "No activities found" },
+        { status: 200 },
+      );
+
+    return NextResponse.json<ActivitiesEndpoint.DeleteResponse>(
+      { deletedCount: data.deletedCount, message: "OK" },
+      { status: 200 },
+    );
+  } catch {
+    return NextResponse.json<ActivitiesEndpoint.DeleteResponse>(
+      { message: "Internal server error" },
+      { status: 500 },
+    );
+  }
+}
+
+export { GET, DELETE };
