@@ -68,7 +68,6 @@ async function PUT(
             activitiesPerPage: parseInt(
               formData.get("activities-per-page") as string,
             ),
-            age: parseInt(formData.get("age") as string),
             theme: formData.get("theme"),
           },
         },

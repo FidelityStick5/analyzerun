@@ -49,7 +49,6 @@ export type DatabaseActivities = {
 } & Activities;
 
 export type Settings = {
-  age: number;
   theme: "light" | "dark" | "dracula";
   activitiesPerPage: number;
 };

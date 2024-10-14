@@ -16,9 +16,8 @@ export default function SettingsForm() {
 
     const formData = new FormData(event.currentTarget);
     const data: Settings = {
-      age: parseInt(formData.get("age") as string) || 0,
       activitiesPerPage:
-        parseInt(formData.get("activities-per-page") as string) || 20,
+        parseInt(formData.get("activities-per-page") as string) || 30,
       theme: (formData.get("theme") as Settings["theme"]) || "dark",
     };
 
@@ -37,24 +36,6 @@ export default function SettingsForm() {
 
   return (
     <form onSubmit={saveSettings} className="flex flex-col gap-6">
-      <div className="text-xl font-semibold">User</div>
-      <div className="relative flex items-center">
-        <input
-          type="number"
-          min="1"
-          max="100"
-          step="1"
-          name="age"
-          defaultValue={settings?.age}
-          placeholder="e.g. 18"
-          className="peer h-12 w-full rounded border-2 border-primary bg-background px-4 text-text outline-none transition-colors focus:border-accent"
-          required
-        />
-        <label className="pointer-events-none absolute -top-2.5 left-2 rounded bg-primary px-4 py-0.5 text-xs text-background transition-colors peer-focus:bg-accent">
-          Your age
-        </label>
-      </div>
-
       <div className="text-xl font-semibold">Dashboard</div>
       <div className="relative flex items-center">
         <input
@@ -63,7 +44,7 @@ export default function SettingsForm() {
           max="120"
           step="1"
           name="activities-per-page"
-          value={settings?.activitiesPerPage || 30}
+          value={settings?.activitiesPerPage}
           onChange={(e) =>
             setSettings({
               ...settings,
