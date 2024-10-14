@@ -67,15 +67,14 @@ export default function SettingsForm() {
           onChange={(e) =>
             setSettings({
               ...settings,
-              theme: e.currentTarget.value as "light" | "dark" | "dracula",
+              theme: e.currentTarget.value as Settings["theme"],
             })
           }
           className="peer h-12 w-full rounded border-2 border-primary bg-background px-4 text-text outline-none transition-colors focus:border-accent"
           required
         >
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-          <option value="dracula">Dracula</option>
+          <option value="dark-orange">Dark Orange</option>
+          <option value="dark-green">Dark Green</option>
         </select>
         <label className="pointer-events-none absolute -top-2.5 left-2 rounded bg-primary px-4 py-0.5 text-xs text-background transition-colors peer-focus:bg-accent">
           Theme

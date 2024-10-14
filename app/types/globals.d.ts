@@ -49,7 +49,7 @@ export type DatabaseActivities = {
 } & Activities;
 
 export type Settings = {
-  theme: "light" | "dark" | "dracula";
+  theme: "dark-orange" | "dark-green";
   activitiesPerPage: number;
 };
 
