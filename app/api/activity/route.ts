@@ -11,7 +11,7 @@ async function DELETE(
 ): Promise<NextResponse<ActivitiesEndpoint.DeleteResponse>> {
   try {
     const { user } = await getUser();
-    if (!user?.id)
+    if (!user?.name)
       return NextResponse.json<ActivitiesEndpoint.DeleteResponse>(
         { message: "Unauthorized" },
         { status: 401 },
@@ -28,7 +28,7 @@ async function DELETE(
       .db("database")
       .collection("activities")
       .updateOne(
-        { userId: ObjectId.createFromHexString(user.id) },
+        { userId: user.name },
         {
           $pull: {
             activities: { _id: ObjectId.createFromHexString(id) } as any,

@@ -50,7 +50,7 @@ async function POST(
 ): Promise<NextResponse<ActivitiesEndpoint.PostResponse>> {
   try {
     const { user } = await getUser();
-    if (!user?.id)
+    if (!user?.name)
       return NextResponse.json<ActivitiesEndpoint.PostResponse>(
         { message: "Unauthorized" },
         { status: 401 },
@@ -80,11 +80,11 @@ async function POST(
       .collection("activities")
       .findOneAndUpdate(
         {
-          userId: ObjectId.createFromHexString(user.id),
+          userId: user.name,
         },
         {
           $set: {
-            userId: ObjectId.createFromHexString(user.id),
+            userId: user.name,
             timestamp: new Date().getTime(),
           },
           $push: {

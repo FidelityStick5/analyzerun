@@ -1,20 +1,25 @@
 import NextAuth from "next-auth";
-import Nodemailer from "next-auth/providers/nodemailer";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "@/utils/database";
+import Credentials from "next-auth/providers/credentials";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  session: {
+    strategy: "jwt",
+  },
   providers: [
-    Nodemailer({
-      server: {
-        host: process.env.EMAIL_SERVER_HOST,
-        port: process.env.EMAIL_SERVER_PORT,
-        auth: {
-          user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD,
-        },
+    Credentials({
+      credentials: {
+        email: {},
+        password: {},
       },
-      from: process.env.EMAIL_FROM,
+      authorize: async (credentials) => {
+        const { email, password } = credentials;
+
+        if (email !== "demo@demo.com" && password !== "demo") return null;
+
+        return { id: "1", name: "demo", email: "demo@demo.com" };
+      },
     }),
   ],
   adapter: MongoDBAdapter(clientPromise, {

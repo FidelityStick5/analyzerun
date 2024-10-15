@@ -1,4 +1,4 @@
-import { MongoClient, ObjectId } from "mongodb";
+import { MongoClient } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import getUser from "@/utils/getUser";
 import { SettingsEndpoint } from "@/types/endpoints";
@@ -10,7 +10,7 @@ const client = new MongoClient(process.env.MONGODB_URI);
 async function GET() {
   try {
     const { user } = await getUser();
-    if (!user?.id)
+    if (!user?.name)
       return NextResponse.json<SettingsEndpoint.GetResponse>(
         { message: "Unauthorized" },
         { status: 401 },
@@ -21,7 +21,7 @@ async function GET() {
       .collection("settings")
       .findOne(
         {
-          userId: ObjectId.createFromHexString(user.id),
+          userId: user.name,
         },
         { projection: { _id: 0, userId: 0 } },
       )) as Settings | null;
@@ -49,7 +49,7 @@ async function PUT(
 ): Promise<NextResponse<SettingsEndpoint.PutResponse>> {
   try {
     const { user } = await getUser();
-    if (!user?.id)
+    if (!user?.name)
       return NextResponse.json<SettingsEndpoint.PutResponse>(
         { message: "Unauthorized" },
         { status: 401 },
@@ -61,10 +61,10 @@ async function PUT(
       .db("database")
       .collection("settings")
       .updateOne(
-        { userId: ObjectId.createFromHexString(user.id) },
+        { userId: user.name },
         {
           $set: {
-            userId: ObjectId.createFromHexString(user.id),
+            userId: user.name,
             activitiesPerPage: parseInt(
               formData.get("activities-per-page") as string,
             ),

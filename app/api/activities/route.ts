@@ -1,4 +1,4 @@
-import { MongoClient, ObjectId } from "mongodb";
+import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
 import getUser from "@/utils/getUser";
 import { ActivitiesEndpoint } from "@/types/endpoints";
@@ -10,7 +10,7 @@ const client = new MongoClient(process.env.MONGODB_URI);
 async function GET(): Promise<NextResponse<ActivitiesEndpoint.GetResponse>> {
   try {
     const { user } = await getUser();
-    if (!user?.id)
+    if (!user?.name)
       return NextResponse.json<ActivitiesEndpoint.GetResponse>(
         { message: "Unauthorized" },
         { status: 401 },
@@ -21,7 +21,7 @@ async function GET(): Promise<NextResponse<ActivitiesEndpoint.GetResponse>> {
       .collection("activities")
       .findOne(
         {
-          userId: ObjectId.createFromHexString(user.id),
+          userId: user.name,
         },
         { projection: { _id: 0, userId: 0 } },
       )) as Activities | null;
@@ -49,7 +49,7 @@ async function DELETE(): Promise<
 > {
   try {
     const { user } = await getUser();
-    if (!user?.id)
+    if (!user?.name)
       return NextResponse.json<ActivitiesEndpoint.DeleteResponse>(
         { message: "Unauthorized" },
         { status: 401 },
@@ -58,7 +58,7 @@ async function DELETE(): Promise<
     const data = await client
       .db("database")
       .collection("activities")
-      .deleteOne({ userId: ObjectId.createFromHexString(user.id) });
+      .deleteOne({ userId: user.name });
 
     if (!data || data.deletedCount === 0)
       return NextResponse.json<ActivitiesEndpoint.DeleteResponse>(
