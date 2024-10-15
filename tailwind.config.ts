@@ -30,6 +30,7 @@ const config: Config = {
         secondary: "var(--secondary)",
         secondary20: "var(--secondary20)",
         accent: "var(--accent)",
+        critical: "var(--critical)",
       },
     },
   },

@@ -30,6 +30,7 @@ const themes = {
     "--secondary": "#202955",
     "--secondary20": "#101323",
     "--accent": "#ffae58",
+    "--critical": "#ff3b3b",
   },
   "dark-green": {
     "--text": "#dee1ef",
@@ -38,6 +39,7 @@ const themes = {
     "--secondary": "#212a56",
     "--secondary20": "#101323",
     "--accent": "#c0f12a",
+    "--critical": "#ff3b3b",
   },
 };
 

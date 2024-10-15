@@ -37,7 +37,7 @@ export default function ActivityActions({ id }: { id: string }) {
   return (
     <button
       onClick={deleteActivity}
-      className="flex items-center justify-between gap-4 rounded bg-primary p-4 text-background transition-colors hover:border-accent hover:bg-accent"
+      className="hover:bg-critical flex items-center justify-between gap-4 rounded bg-primary p-4 text-background transition-colors hover:border-accent"
     >
       <span>Delete activity</span>
       <span className="max-sm:hidden">

@@ -32,7 +32,7 @@ export default function ActivitiesDeleter() {
   return (
     <button
       onClick={deleteActivities}
-      className="flex h-14 items-center justify-between gap-4 rounded bg-primary p-4 text-background transition-colors hover:border-accent hover:bg-accent disabled:bg-secondary disabled:text-primary"
+      className="hover:bg-critical flex h-14 items-center justify-between gap-4 rounded bg-primary p-4 text-background transition-colors hover:border-accent disabled:bg-secondary disabled:text-primary"
       disabled={!activities || isDeleting}
     >
       <span>
