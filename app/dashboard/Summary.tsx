@@ -47,7 +47,7 @@ export default function Summary() {
     }
 
     const averageVO2Max =
-      runningActivitiesCount > 0 ? totalVO2Max / runningActivitiesCount : 0;
+      runningActivitiesCount > 0 ? totalVO2Max / runningActivitiesCount : null;
 
     setSummary({
       averageVO2Max: averageVO2Max,
@@ -63,6 +63,15 @@ export default function Summary() {
   if (!activities || activities.length === 0 || !summary)
     return (
       <ErrorMessage text="To see your summary and overall performance import activities" />
+    );
+  if (!summary.averageVO2Max)
+    return (
+      <div className="grid gap-4 bg-secondary20 p-4 md:rounded">
+        <GridTile
+          title="Favorite activity"
+          data={`${summary.favoriteActivity.count}x ${summary.favoriteActivity.name}`}
+        />
+      </div>
     );
 
   return (

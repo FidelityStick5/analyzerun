@@ -35,7 +35,7 @@ export default function ActivityGrid({ id }: { id: string }) {
       activities.find(({ _id }) => _id.toString() === id) ?? undefined;
 
     setActivity(foundActivity);
-  }, [activities]);
+  }, [activities, id]);
 
   if (isActivitiesContextLoading)
     return <ErrorMessage text="Loading activity" />;

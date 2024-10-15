@@ -60,7 +60,7 @@ export type DatabaseSettings = {
 } & Settings;
 
 export type UserSummary = {
-  averageVO2Max: number;
+  averageVO2Max: number | null;
   favoriteActivity: {
     name: string;
     count: number;
