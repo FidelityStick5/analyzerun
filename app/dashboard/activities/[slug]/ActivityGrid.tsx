@@ -113,26 +113,44 @@ export default function ActivityGrid({ id }: { id: string }) {
         Icon={ElevationIcon}
         iconColor="#60a5fa"
       />
-      <GridTile
-        title="Estimated VO2Max"
-        data={estimateVO2Max(activity.distance, activity.time).toFixed(2)}
-        Icon={Vo2MaxIcon}
-        iconColor="#a78bfa"
-        gridSpan="xl:col-span-2 xl:row-span-2"
-      />
+
+      {activity.activity_type === "Running" && (
+        <>
+          <GridTile
+            title="Maximum elevation"
+            data={activity.max_elevation}
+            Icon={ElevationIcon}
+            iconColor="#60a5fa"
+          />
+          <GridTile
+            title="Estimated VO2Max"
+            data={estimateVO2Max(activity.distance, activity.time).toFixed(2)}
+            Icon={Vo2MaxIcon}
+            iconColor="#a78bfa"
+            gridSpan="xl:col-span-2 xl:row-span-2"
+          />
+        </>
+      )}
+
       <GridTile
         title="Burned calories"
         data={activity.calories + " calories"}
         Icon={CaloriesIcon}
         iconColor="#f87171"
-        gridSpan="xl:row-span-2"
+        gridSpan={
+          activity.activity_type !== "Running"
+            ? "xl:col-span-3 xl:row-span-2"
+            : "xl:col-span-2"
+        }
       />
-      <GridTile
-        title="Maximum elevation"
-        data={activity.max_elevation}
-        Icon={ElevationIcon}
-        iconColor="#60a5fa"
-      />
+      {activity.activity_type !== "Running" && (
+        <GridTile
+          title="Maximum elevation"
+          data={activity.max_elevation}
+          Icon={ElevationIcon}
+          iconColor="#60a5fa"
+        />
+      )}
     </div>
   );
 }
