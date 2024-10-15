@@ -10,7 +10,7 @@ if (!process.env.MONGODB_URI) throw new Error("MONGODB_URI not set");
 const client = new MongoClient(process.env.MONGODB_URI);
 
 const standardizeData = (data: Record<string, any>): Activity => {
-  let resultActivity: Partial<Activity> = { _id: new ObjectId() };
+  let resultActivity: Partial<Activity> = { _id: new ObjectId(), units: "km" };
 
   for (const [key, value] of Object.entries(data)) {
     for (const [standardKey, localizedKeys] of Object.entries(mapping)) {
@@ -20,6 +20,8 @@ const standardizeData = (data: Record<string, any>): Activity => {
       break;
     }
   }
+
+  if (resultActivity.activity_type === "Pool Swim") resultActivity.units = "m";
 
   return resultActivity as Activity;
 };

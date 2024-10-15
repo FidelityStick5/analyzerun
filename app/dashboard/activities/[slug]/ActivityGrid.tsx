@@ -74,7 +74,7 @@ export default function ActivityGrid({ id }: { id: string }) {
 
       <GridTile
         title="Activity distance"
-        data={`${activity.distance} km`}
+        data={`${activity.distance} ${activity.units}`}
         Icon={DistanceIcon}
         iconColor="#4ade80"
         gridSpan="xl:row-span-2"

@@ -28,7 +28,9 @@ function ActivityContainer({
       style={{ animationDelay: `${delay}ms` }}
     >
       <div>{activity.title}</div>
-      <div>{activity.distance} km</div>
+      <div>
+        {activity.distance} {activity.units}
+      </div>
     </Link>
   );
 }

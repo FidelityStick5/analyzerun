@@ -36,6 +36,7 @@ export type Activity = {
   elapsed_time: string;
   min_elevation: number;
   max_elevation: number;
+  units: "km" | "m";
 };
 
 export type Activities = {
