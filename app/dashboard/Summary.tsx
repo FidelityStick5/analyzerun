@@ -1,6 +1,7 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
+import Chart from "./Chart";
 import GridTile from "@/components/GridTile";
 import { ActivitiesContext } from "@/providers/ActivitiesProvider";
 import { estimateVO2Max } from "@/utils/vo2maxUtils";
@@ -65,18 +66,19 @@ export default function Summary() {
     );
 
   return (
-    <div className="grid grid-cols-2 grid-rows-2 gap-4 bg-secondary20 p-4 md:rounded">
+    <div className="grid gap-4 bg-secondary20 p-4 md:rounded xl:grid-cols-2 xl:grid-rows-2">
       <GridTile
         title="Average VO2Max of your running sessions"
         data={summary.averageVO2Max.toFixed(2)}
-        gridSpan="col-span-2"
+        gridSpan="xl:col-span-2"
       />
 
       <GridTile
         title="Favorite activity"
         data={`${summary.favoriteActivity.count}x ${summary.favoriteActivity.name}`}
-        gridSpan="col-span-2"
       />
+
+      <Chart activities={activities} />
     </div>
   );
 }
