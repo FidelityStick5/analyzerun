@@ -27,6 +27,7 @@ export default function ActivityGrid({ id }: { id: string }) {
   const { activities, isActivitiesContextLoading } =
     useContext(ActivitiesContext);
   const [activity, setActivity] = useState<Activity>();
+  const [unitType, setUnitType] = useState<"m" | "km">("km");
 
   useEffect(() => {
     if (!activities) return;
@@ -34,7 +35,11 @@ export default function ActivityGrid({ id }: { id: string }) {
     const foundActivity: Activity | undefined =
       activities.find(({ _id }) => _id.toString() === id) ?? undefined;
 
+    if (!foundActivity) return;
+
     setActivity(foundActivity);
+
+    if (foundActivity.activity_type === "Pool Swim") setUnitType("m");
   }, [activities]);
 
   if (isActivitiesContextLoading)
@@ -74,7 +79,7 @@ export default function ActivityGrid({ id }: { id: string }) {
 
       <GridTile
         title="Activity distance"
-        data={`${activity.distance} km`}
+        data={`${activity.distance} ${unitType}`}
         Icon={DistanceIcon}
         iconColor="#4ade80"
         gridSpan="xl:row-span-2"
