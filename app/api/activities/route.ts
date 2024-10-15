@@ -55,8 +55,6 @@ async function DELETE(): Promise<
         { status: 401 },
       );
 
-    console.log(user);
-
     const data = await client
       .db("database")
       .collection("activities")

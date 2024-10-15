@@ -60,8 +60,12 @@ export default function ActivityGrid({ id }: { id: string }) {
       <GridTile
         title="Activity date"
         data={[
-          new Date(activity.date).toLocaleTimeString(),
-          new Date(activity.date).toLocaleDateString(),
+          new Intl.DateTimeFormat(navigator.language, {
+            timeStyle: "short",
+          }).format(new Date(activity.date)),
+          new Intl.DateTimeFormat(navigator.language, {
+            dateStyle: "short",
+          }).format(new Date(activity.date)),
         ]}
         Icon={DateIcon}
         iconColor="#818cf8"
