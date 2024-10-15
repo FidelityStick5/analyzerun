@@ -1,7 +1,7 @@
 import { Activity } from "@/types/globals";
 
 export const mapping: Record<
-  keyof Omit<Activity, "_id" | "userId">,
+  keyof Omit<Activity, "_id" | "userId" | "units">,
   Array<string>
 > = {
   activity_type: ["Activity Type", "Typ aktywności"],

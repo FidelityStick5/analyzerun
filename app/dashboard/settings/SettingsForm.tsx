@@ -63,7 +63,7 @@ export default function SettingsForm() {
       <div className="relative flex items-center">
         <select
           name="theme"
-          value={settings?.theme || "dark-orange"}
+          value={settings?.theme || "dark-green"}
           onChange={(e) =>
             setSettings({
               ...settings,
@@ -73,8 +73,8 @@ export default function SettingsForm() {
           className="peer h-12 w-full rounded border-2 border-primary bg-background px-4 text-text outline-none transition-colors focus:border-accent"
           required
         >
-          <option value="dark-orange">Dark Orange</option>
           <option value="dark-green">Dark Green</option>
+          <option value="dark-orange">Dark Orange</option>
         </select>
         <label className="pointer-events-none absolute -top-2.5 left-2 rounded bg-primary px-4 py-0.5 text-xs text-background transition-colors peer-focus:bg-accent">
           Theme
